@@ -1,0 +1,120 @@
+Note:- Some times Runtime error occurs just refresh the website it will work then.
+
+This is the Twitter clone and its backend have this URL
+Mongo_url="mongodb://127.0.0.1:27017/Twitter"
+
+Token*
+JWT_Secret="hafsfffgg72846285jjjkh54646467hh"
+
+This is the link and port for connecting "http://localhost:8080"
+All Api and location are collected together and put into the respective folder Please visit that for the more details. 
+
+
+
+
+
+Thought Note
+•	**Backend Implementation:**
+
+I created: 
+
+1)	**User Model Schema:**
+a)	Name
+b)	Username
+c)	Email
+d)	Password
+e)	Profile Picture
+f)	Location
+g)	Date of Birth
+h)	Following Array
+i)	Followers Array
+j)	Tweets Array
+k)	Timestamps
+
+2)	**Tweets Model Schema:**
+a)	Content
+b)	Likes Array
+c)	Retweet Array
+d)	Image Array
+e)	Reply Array
+f)	Timestamps
+
+3)	**User APIs:**
+a)	Register User
+b)	Log In User
+c)	Get User Details
+d)	Follow User
+e)	Unfollow User
+f)	Edit User
+g)	Get User's Tweets
+h)	Update Profile Picture
+
+4)	**Tweet APIs:**
+a)	Create Tweet
+b)	Like Tweet
+c)	Dislike Tweet
+d)	Reply to Tweet
+e)	Get Tweet Details
+f)	Get All Tweets
+g)	Delete Tweet
+h)	Retweet
+  
+5)	**Endpoints:**
+a)	Register: `/api/user/register`
+b)	Log In: `/api/user/login`
+c)	Get User Details: `/api/user/details/:userId`
+d)	Follow User: `/api/user/follow/:userId`
+e)	Unfollow User: `/api/user/unfollow/:userId`
+f)	Edit User: `/api/user/edit/:userId`
+g)	Get User's Tweets: `/api/user/tweets/:userId`
+h)	Update Profile Picture: `/api/user/update-profile-picture/:userId`
+i)	Create Tweet: `/api/tweet/create`
+j)	Like Tweet: `/api/tweet/like/:tweetId`
+k)	Dislike Tweet: `/api/tweet/dislike/:tweetId`
+l)	Reply to Tweet: `/api/tweet/reply/:tweetId`
+m)	Get Tweet Details: `/api/tweet/details/:tweetId`
+n)	Get All Tweets: `/api/tweet/all`
+o)	Delete Tweet: `/api/tweet/delete/:tweetId`
+p)	Retweet: `/api/tweet/retweet/:tweetId`
+
+6)	**User Authentication:**
+a)	Token generation using JSON Web Token (JWT)
+b)	Token validation on the backend
+c)	`req.user` is set after successful validation
+
+7)	**Image Upload:**
+a)	Multer used for uploading tweet images and profile pictures
+
+‘
+**Frontend Implementation:**
+
+•	**Authentication Pages:**
+a)	Login Page
+b)	Register Page
+
+•	**Sidebar:**
+a)	Home Page
+b)	Profile Page
+c)	Logout Navigation Link
+
+•	**Home Page:**
+a)	First Section: Sidebar
+b)	Second Section: Tweet List
+
+•	**Tweet Card:**
+a)	Like, Reply, Retweet Buttons
+b)	User can delete own tweet
+
+•	**Tweet Details Page:**
+a)	Clicking on the tweet content shows details
+b)	View who replied and reply to the tweet
+
+•	**Profile Page:**
+a)	Display user data (profile picture, date of birth, join date, location)
+b)	Edit name, date of birth, and location
+c)	View own tweets and replies
+
+•	**Logout:**
+a)	Redirects to the Login Page
+
+

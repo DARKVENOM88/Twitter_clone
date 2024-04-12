@@ -1,0 +1,40 @@
+.photo-wrapper{
+    position: relative;
+    width: 100%;
+    padding-bottom: 100%;
+}   
+.photo-wrapper img{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.btn-tweet{
+background-color:rgb(29 ,161 ,242) ;
+color:white
+}
+.profile-pic{
+    height: 45px;
+    width: 45px;
+    border-radius: 25px;
+}
+.profile{
+    text-align: left;
+    margin-left: 140px;
+    margin-top: 20px;
+}
+.note {
+    height: 40px;
+    border-radius: 8px;
+    background-color: #AFDBF5;
+}
+.note p {
+    padding: 10px;
+}
+.choose-file {
+    border: solid 2px #AFDBF5;
+    width: 465px;
+    border-radius: 8px;
+}
