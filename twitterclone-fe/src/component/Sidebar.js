@@ -27,27 +27,27 @@ const Sidebar = () => {
             {user ? <>
                 <ToastContainer />
                 <nav className='flex-column ' >
-                <ul>
-                    <li>
-                        <a><i className="fa-brands fa-twitter fa-2xl"></i></a>
-                    </li>
-                    <li>
-                        <NavLink to='/home' className="nav-item"><i className="fa-solid fa-house"></i> Home</NavLink>
-                    </li>
-                    <li>
-                        <NavLink to={ProfileUrl} className="nav-item"><i className="fa-solid fa-user"></i> Profile</NavLink>
-                    </li>
-                    <li>
-                        <a onClick={(e) => logout()}><i className="fa-solid fa-right-from-bracket"></i> Logout</a>
-                    </li>
-                    <li>
-                        {/* Profile Section at the end of the Navbar */}
-                        <div className='d-flex profile-section'>
-                            <img className="profile-pic ms-md-2" src={user.user.ProfilePic} alt="Profile Picture" />
-                            <p className=' card-text fw-bold '>{user.user.Name}<h6>@{user.user.UserName}</h6></p>
-                        </div> 
-                    </li>
-                </ul>
+                    <ul>
+                        <li>
+                            <NavLink to='/home'><i className="fa-brands fa-twitter fa-2xl"></i></NavLink>
+                        </li>
+                        <li>
+                            <NavLink to='/home' className="nav-item"><i className="fa-solid fa-house"></i> Home</NavLink>
+                        </li>
+                        <li>
+                            <NavLink to={ProfileUrl} className="nav-item"><i className="fa-solid fa-user"></i> Profile</NavLink>
+                        </li>
+                        <li>
+                            <a onClick={(e) => logout()}><i className="fa-solid fa-right-from-bracket"></i> Logout</a>
+                        </li>
+                        <li>
+                            {/* Profile Section at the end of the Navbar */}
+                            <div className='d-flex profile-section'>
+                                <img className="profile-pic ms-md-2" src={user.user.ProfilePic} alt="Profile Picture" />
+                                <p className=' card-text fw-bold '>{user.user.Name}<h6>@{user.user.UserName}</h6></p>
+                            </div>
+                        </li>
+                    </ul>
                 </nav>
             </> : ''}
 
