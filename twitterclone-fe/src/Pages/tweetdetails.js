@@ -100,7 +100,7 @@ const Tweetdetails = () => {
     const Tdetails = useSelector(state => state.TweetReducer)
 
     useEffect(() => {
-        tweetDetails()
+        Tweetdetails()
     }, [])
 
     return (
@@ -113,7 +113,7 @@ const Tweetdetails = () => {
                             <p className='text-muted ms-3 fs-6 fw-bold'> <FontAwesomeIcon icon={faRetweet} style={{ color: "#19c836", }} /></p>
                         </div>
                         <div className='d-flex '>
-                            <img className="profile-pic ms-md-2" src={Tdetails.tweet.TweetedBy.ProfilePic} alt="Profile Picture" />
+                            <img className="profile-pic ms-md-2" src={Tdetails.tweet.TweetedBy.ProfilePic} />
                             <p className=' card-text fw-bold  me-2' >{Tdetails.tweet.TweetedBy.Name}</p>
                             <p className='fs-6 text-muted mb-0'>  {new Date(Tdetails.tweet.createdAt).getDate()}/{new Date(Tdetails.tweet.createdAt).getMonth() + 1}/{new Date(Tdetails.tweet.createdAt).getFullYear()}</p>
                         </div>
@@ -151,7 +151,7 @@ const Tweetdetails = () => {
                                     }
                                 </div>
                                 <div className='d-flex '>
-                                <img className="profile-pic ms-md-2" src={P.TweetedBy.ProfilePic} alt="Profile Picture" />
+                                <img className="profile-pic ms-md-2" src={P.TweetedBy.ProfilePic} />
                                     <p className='card-text fw-bold me-2'>{P.TweetedBy.Name}</p>
                                     <p className='fs-6 text-muted mb-0'>{new Date(P.createdAt).getDate()}/{new Date(P.createdAt).getMonth() + 1}/{new Date(P.createdAt).getFullYear()}</p>
                                 </div>

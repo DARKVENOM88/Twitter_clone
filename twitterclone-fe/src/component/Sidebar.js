@@ -38,12 +38,13 @@ const Sidebar = () => {
                             <NavLink to={ProfileUrl} className="nav-item"><i className="fa-solid fa-user"></i> Profile</NavLink>
                         </li>
                         <li>
-                            <a onClick={(e) => logout()}><i className="fa-solid fa-right-from-bracket"></i> Logout</a>
+                            <a href="#" onClick={(e) => logout()}><i className="fa-solid fa-right-from-bracket"></i> Logout</a>
+                            
                         </li>
                         <li>
                             {/* Profile Section at the end of the Navbar */}
                             <div className='d-flex profile-section'>
-                                <img className="profile-pic ms-md-2" src={user.user.ProfilePic} alt="Profile Picture" />
+                                <img className="profile-pic ms-md-2" src={user.user.ProfilePic} />
                                 <p className=' card-text fw-bold '>{user.user.Name}<h6>@{user.user.UserName}</h6></p>
                             </div>
                         </li>
