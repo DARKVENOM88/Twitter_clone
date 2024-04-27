@@ -1,110 +1,135 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react'
 import './Home.css';
 import { API_BASE_URL } from '../Config/config';
 import Sidebar from '../component/Sidebar';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart, faRetweet, faComment, faTrash } from "@fortawesome/free-solid-svg-icons";
-import axios from 'axios';
-import { toast } from 'react-toastify';
+
+// import logo from "../Pages/Asia-Cup-2023.jpg"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faHeart, faRetweet, faComment, faImage, faTrash } from "@fortawesome/free-solid-svg-icons"
+import axios from 'axios'
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'
+
 
 const Home = () => {
-  const [image, setImage] = useState({ preview: "", data: "" });
-  const [Content, setContent] = useState("");
-  const [loading, setloading] = useState(false);
-  const [tweets, settweets] = useState([]);
-  const [Liked, setLiked] = useState(false);
-  const [Reply, setReply] = useState("");
-  const [Show, setShow] = useState(false);
+  const [image, setImage] = useState({ preview: " ", data: " " })
+  const [Content, setContent] = useState("")
+  const [loading, setloading] = useState(false)
+  const [tweets, settweets] = useState([])
+  const [Liked, setLiked] = useState(false)
+  const [Reply, setReply] = useState("")
+  const [Show, setShow] = useState(false)
 
-  const user = JSON.parse(localStorage.getItem("user"));
-  const Navigate = useNavigate();
+  const user = JSON.parse(localStorage.getItem("user"))
+  const Navigate = useNavigate()
 
   const config = {
     headers: {
       "Content-type": "application/json",
       "authorization": "Bearer " + localStorage.getItem("token")
     }
-  };
 
+  }
   const handleFile = (event) => {
     const img = {
       preview: URL.createObjectURL(event.target.files[0]),
       data: event.target.files[0]
-    };
-    setImage(img);
-    setloading(true);
-  };
+    }
+    setImage(img)
+    setloading(true)
+  }
+  //  console.log(image.data)
 
   const handleImageupload = async () => {
     try {
-      const formdata = new FormData();
-      formdata.append('file', image.data);
-      const response = await axios.post(`${API_BASE_URL}/upload`, formdata);
+      const formdata = new FormData()
+      formdata.append('file', image.data)
+      // console.log(formdata)
+      const response = await axios.post(`${API_BASE_URL}/upload`, formdata)
+      // console.log(formdata)
       return response;
-    } catch (err) {
-      console.log(err);
+
     }
-  };
+    catch (err) {
+      console.log(err)
+    }
+  }
+  // const UpladImag
+  /**
+   * The `tweet` function is an asynchronous function that handles the process of creating a new tweet,
+   * including uploading an image if available.
+   * @param e - The parameter `e` is an event object that is passed to the `tweet` function. It is
+   * typically used to prevent the default behavior of a form submission, as seen in the code snippet
+   * with `e.preventDefault()`.
+   * @returns nothing.
+   */
 
   const tweet = async (e) => {
     try {
-      e.preventDefault();
+      e.preventDefault()
+
       if (loading) {
-        const imageRes = await handleImageupload();
+        const imageRes = await handleImageupload()
+        //  console.log(imageRes)
         const tweetdata = await axios.post(`${API_BASE_URL}/Create/tweet`, {
           Content: Content,
           Image: `${API_BASE_URL}/files/${imageRes.data.filename}`
-        }, config);
+        }, config)
         if (tweetdata.status === 201) {
-          toast.success("tweet Uploaded");
-          setImage({ preview: "", data: "" });
-          setContent("");
-          setloading(false);
-          showAlltweet();
+
+          toast.success("tweet Uploaded")
+          setImage({ preview: "", data: " " })
+          setContent("")
+          setloading(false)
+          showAlltweet()
+          console.log(tweetdata)
         }
-        return;
+        return
       }
       const tweetdata = await axios.post(`${API_BASE_URL}/Create/tweet`, {
-        Content: Content
-      }, config);
+        Content: Content,
+      }, config)
       if (tweetdata.status === 201) {
-        toast.success("tweet Uploaded");
-        setImage({ preview: "", data: "" });
-        setContent("");
+        toast.success("tweet Uploaded")
+        setImage({ preview: "", data: " " })
+        setContent("")
+        console.log(tweetdata)
       }
-      showAlltweet();
-    } catch (err) {
-      console.log(err);
-      toast.error(err.response.data.msg || "Internal server Error");
-    }
-  };
+      showAlltweet()
 
-  const showAlltweet = async () => {
+    }
+    catch (err) {
+      console.log(err)
+      toast.error(err.response.data.msg || "Internal server Error")
+    }
+  }
+
+  const showAlltweet = async (e) => {
     try {
-      const data = await axios.get(`${API_BASE_URL}/tweet`);
+      const data = await axios.get(`${API_BASE_URL}/tweet`,)
       if (data.status === 200) {
-        settweets(data.data);
+        settweets(data.data)
       }
     } catch (err) {
-      console.log(err);
+      console.log(err)
     }
-  };
+  }
 
   const deleteTweet = async (id) => {
     try {
-      const response = await axios.delete(`${API_BASE_URL}/Delete/tweet/${id}`, config);
-      if (response.status === 200) {
-        toast.warn("tweeet deleted");
-        showAlltweet();
-      }
-    } catch (err) {
-      console.log(err);
-      toast.error(err.response.data.msg || "Internal server Error");
-    }
-  };
 
+      const response = await axios.delete(`${API_BASE_URL}/Delete/tweet/${id}`, config)
+      if (response.status === 200) {
+        toast.warn("tweeet deleted")
+        showAlltweet()
+      }
+    }
+    catch (err) {
+      console.log(err)
+      toast.error(err.response.data.msg || "Internal server Error")
+    }
+  }
   const action = async (id) => {
     try {
       if (!Liked) {
@@ -201,8 +226,9 @@ const Home = () => {
 
 
   useEffect(() => {
-    showAlltweet();
-  }, []);
+    showAlltweet()
+
+  }, [])
 
   return (
     <div className='container'>
@@ -225,7 +251,7 @@ const Home = () => {
                 </div>
                 {p.Retweet.length > 0 ? <p className='text-muted ms-3 fs-6 fw-bold'> <FontAwesomeIcon icon={faRetweet} onClick={() => Retweet()} style={{ color: "#19c836", }} />Retweeted by {p.Retweet[0].Name}  </p> : ""}
                 <div className='d-flex '>
-                  <img className="profile-pic ms-md-2" onClick={() => otherProfile(p.TweetedBy._id)} src={p.TweetedBy.ProfilePic} alt='profilepic' />
+                  <img className="profile-pic ms-md-2" onClick={() => otherProfile(p.TweetedBy._id)} src={p.TweetedBy.ProfilePic} alt="Profile Picture" />
                   <p className=' card-text fw-bold  me-2'>{p.TweetedBy.Name}</p>
                   <p className='fs-6 text-muted mb-0'>  {new Date(p.createdAt).getDate()}/{new Date(p.createdAt).getMonth() + 1}/{new Date(p.createdAt).getFullYear()}</p>
 
@@ -275,7 +301,10 @@ const Home = () => {
 
 
         </div>
+
       </div>
+
+
       <div className="modal fade" id="twitterModel" tabindex="-1" aria-labelledby="twitterModelLabel" aria-hidden="true">
         <div className="modal-dialog">
           <div className="modal-content">
@@ -310,6 +339,10 @@ const Home = () => {
           </div>
         </div>
       </div>
+
+
+
+
     </div>
   );
 };

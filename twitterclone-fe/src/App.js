@@ -6,38 +6,48 @@ import Tweetdetails from './Pages/tweetdetails';
 import Profile from './Pages/Profile';
 
 import Sidebar from './component/Sidebar';
-import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom';
-import { ToastContainer } from 'react-toastify';
+import { BrowserRouter, Router, Route, Routes, useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useEffect } from 'react';
+
 
 function App() {
 
   const Dynamiroute = () => {
-    const Navigate = useNavigate();
-    const token = localStorage.getItem("token");
+
+    const Navigate = useNavigate()
+    const token = localStorage.getItem("token")
 
     useEffect(() => {
       if (token) {
-        Navigate("/home");
-      } else {
-        localStorage.removeItem("token");
-        localStorage.removeItem("user");
-        Navigate("/");
+        Navigate("/home")
       }
-    }, [Navigate, token]); // Include Navigate and token in the dependency array
+      else {
+        localStorage.removeItem("token")
+        localStorage.removeItem("user")
+        Navigate("/")
 
+      }
+    }, [])
     return (
+
       <Routes>
         <Route path='/register' element={<Register />} />
         <Route path='/' element={<Login />} />
         <Route path='/home' element={<Home />} />
         <Route path='/TweetDetails/:tweetId' element={<Tweetdetails />} />
         <Route path='/Profile/:UserId' element={<Profile />} />
+        
         <Route path='/sidebar' element={<Sidebar />} />
+
+
       </Routes>
-    );
-  };
+    )
+
+
+  }
+
 
   return (
     <div className="App">
@@ -45,6 +55,7 @@ function App() {
         <Dynamiroute />
         <ToastContainer />
       </BrowserRouter>
+
     </div>
   );
 }

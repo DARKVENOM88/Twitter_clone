@@ -4,11 +4,11 @@ import "./Profile.css"
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
-import { faCakeCandles, faCalendarDays, faLocationDot, faHeart, faRetweet, faComment } from "@fortawesome/free-solid-svg-icons"
-import { useDispatch } from 'react-redux'
+import { faCakeCandles, faCalendarDays, faLocationDot, faHeart, faRetweet, faImage, faComment } from "@fortawesome/free-solid-svg-icons"
+import { useDispatch, useSelector } from 'react-redux'
 import axios from 'axios'
 import { API_BASE_URL } from "../Config/config"
-import { toast } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useParams } from 'react-router-dom'
 
@@ -188,8 +188,6 @@ const Profile = () => {
       const replied = await axios.post(`${API_BASE_URL}/Reply/tweet/${id}`, {
         Content: Reply
       }, config)
-
-
       if (replied.status === 200) {
         toast.success("you Replied the tweet")
         ProfileData()
@@ -199,8 +197,9 @@ const Profile = () => {
     } catch (err) {
       console.log(err)
     }
-  }
 
+
+  }
   /**
    * The function `action` is an asynchronous function that handles liking and disliking a tweet, and
    * updates the state accordingly.
@@ -234,8 +233,13 @@ const Profile = () => {
     }
   }
 
+
+
+
   useEffect(() => {
     ProfileData(UserId)
+
+
   }, [UserId])
 
   return (
@@ -249,7 +253,7 @@ const Profile = () => {
           {loading ? (<p>loading</p>) : (
             <div className='row ' style={{ backgroundColor: "#c2e9fb" }} >
               <div className='d-flex  bg-light justify-content-between' style={{ marginTop: "140px", backgroundColor: "rgb(29 ,161 ,242)" }}>
-                <img className="profile-pic ms-md-2" style={{ height: "100px", width: "100px", borderRadius: "100px" }} src={UserData.ProfilePic} alt={`${UserData.Name}'s Profile Picture`} />
+                <img className="profile-pic ms-md-2" style={{ height: "100px", width: "100px", borderRadius:"100px" }} src={UserData.ProfilePic} alt="Profile Picture" />
                 {loggedInUser._id === UserId ? (
                   <div>
                     <button className='btn btn-outline-primary my-3 mx-1 ms-5 text-center   h-50' data-bs-toggle="modal" data-bs-target="#DPModal"> Upload Profile Photo</button>
@@ -258,6 +262,8 @@ const Profile = () => {
                   </div>
                 ) : (<button className='btn btn-dark my-3 h-50' onClick={() => clickBtn()}>{btn}</button>)}
               </div>
+
+
 
               <div className='bg-light'>
                 <p className='fw-bold mx-4' >{UserData.Name}</p>
@@ -268,9 +274,14 @@ const Profile = () => {
                     <FontAwesomeIcon className="ms-5" icon={faLocationDot} /> Location {UserData.Location}
                   </div>
 
+
                   <div className='col-12'>
                     <FontAwesomeIcon className='me-2' icon={faCalendarDays} />Joined {new Date(UserData.createdAt).getDate()}-{new Date(UserData.createdAt).getMonth() + 1}-{new Date(UserData.createdAt).getFullYear()}
+
+
                   </div>
+
+
                 </div>
                 <div className='d-flex my-3 '>
                   <h6 className='fw-bold '>{UserData.Following.length} Following </h6>
@@ -283,8 +294,9 @@ const Profile = () => {
                 {userTweet.map(P => {
                   return (
                     <div className="card w-75  mt-2  ms-5">
+                      {/* <p className='text-muted ms-3 fs-6 fw-bold'> <FontAwesomeIcon icon={faRetweet} style={{ color: "#19c836", }} />  Retweeted by</p> */}
                       <div className='d-flex '>
-                        <img className="profile-pic ms-md-2" src={UserData.ProfilePic} alt={`${UserData.Name}'s Profile Picture`} />
+                        <img className="profile-pic ms-md-2" src={UserData.ProfilePic} alt="Profile Picture" />
                         <p className=' card-text fw-bold ' >{UserData.Name}</p>
                         <p className='card-text text-muted mb-0'>- {new Date(P.createdAt).getDate()}-{new Date(P.createdAt).getMonth() + 1}-{new Date(P.createdAt).getFullYear()} </p>
                       </div>
@@ -294,8 +306,8 @@ const Profile = () => {
                           <div className='photo-wrapper '>
                             <img
                               src={P.Image}
-                              className="img-fluid "
-                              alt="Tweet Image"
+                              className="img-fluid " // Use 'img-fluid' to ensure responsive images
+                              alt="Logo"
                             />
                           </div>
                           : ""}
@@ -309,15 +321,25 @@ const Profile = () => {
                               <input className='form-control w-50' type='text' onChange={(e) => setReply(e.target.value)} placeholder='Reply your tweet' />
                               <input className="btn btn-tweet ms-2" type='submit' />
                             </form> : ""
+
                           }
                         </div>
                       </div>
                     </div>
+
+
                   )
                 })}
+
               </div>
+
+
             </div>
+
+
           )}
+
+
         </div>
         <div className="modal fade" id="DPModal" tabindex="-1" aria-labelledby="twitterModelLabel" aria-hidden="true">
           <div className="modal-dialog">
@@ -327,6 +349,9 @@ const Profile = () => {
                 <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div className="modal-body">
+                {/* <button className='opacity-75 fw-bold my-4'  >
+                  <FontAwesomeIcon icon={faImage} size='xl' />
+                  Click here */}
                 <div className='note'>
                   <p><span className='text'>Note: The image should be square in shape.</span></p>
                 </div>
@@ -334,8 +359,10 @@ const Profile = () => {
                   <input type='file' onChange={(e) => handleFile(e)} />
                 </div>
                 {(image.preview) ?
-                  <img className='img-fluid mt-2' src={image.preview} alt="Uploaded Preview" /> : " "
+                  <img className='img-fluid mt-2' src={image.preview} /> : " "
+
                 }
+
               </div>
               <div className="modal-footer">
                 <button typer="button" className="btn btn-secondary " data-bs-dismiss="modal" aria-label="Close">Close</button>
@@ -358,6 +385,7 @@ const Profile = () => {
                 <input type='text' className='form-control mb-2' value={Location} onChange={(e) => setLocation(e.target.value)} placeholder='Location' />
                 <label htmlFor="name" className='ms-2 mb-2 mb-2'>Date of Birth</label>
                 <input type='date' className='form-control' value={date} onChange={(e) => setdate(e.target.value)} placeholder='Date Of Birth' />
+                
               </div>
               <div className="modal-footer">
                 <button typer="button" className="btn btn-secondary " data-bs-dismiss="modal" aria-label="Close">Close</button>
