@@ -225,7 +225,7 @@ const Home = () => {
                 </div>
                 {p.Retweet.length > 0 ? <p className='text-muted ms-3 fs-6 fw-bold'> <FontAwesomeIcon icon={faRetweet} onClick={() => Retweet()} style={{ color: "#19c836", }} />Retweeted by {p.Retweet[0].Name}  </p> : ""}
                 <div className='d-flex '>
-                  <img className="profile-pic ms-md-2" onClick={() => otherProfile(p.TweetedBy._id)} src={p.TweetedBy.ProfilePic} />
+                  <img className="profile-pic ms-md-2" onClick={() => otherProfile(p.TweetedBy._id)} src={p.TweetedBy.ProfilePic} alt='profilepic' />
                   <p className=' card-text fw-bold  me-2'>{p.TweetedBy.Name}</p>
                   <p className='fs-6 text-muted mb-0'>  {new Date(p.createdAt).getDate()}/{new Date(p.createdAt).getMonth() + 1}/{new Date(p.createdAt).getFullYear()}</p>
 
@@ -299,7 +299,7 @@ const Home = () => {
               </div>
 
               {(image.preview) ?
-                <img className='img-fluid' src={image.preview} alt='preview image' /> : " "
+                <img className='img-fluid' src={image.preview} /> : " "
 
               }
             </div>
